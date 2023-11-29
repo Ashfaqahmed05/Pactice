@@ -1,0 +1,72 @@
+<!-- page1.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            margin-top: 10px;
+        }
+
+        input {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+            <video width="300" height="300" id="video" src="video.mp4" controls></video>
+        <div>
+            <h1>Page 1</h1>
+            <input id="page1input" type="text" placeholder="Add Todo for Page 2" required>
+            <button id="add-todo">Add Todo</button>
+            <div id="todoscontainer1"></div>
+            <a href="page2.html">Go to Page 2</a>
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script>
+        let page1input = document.getElementById('page1input');
+        let btn = document.getElementById('add-todo');
+        let todosContainer1 = document.getElementById('todoscontainer1');
+
+        // Load existing todos from local storage
+        let existingTodos = getTodosFromLocalStorage('todosPage1');
+        existingTodos.forEach(todo => {
+            displayTodoOnPage(todo, todosContainer1);
+        });
+
+        btn.addEventListener('click', () => {
+            let todos = page1input.value;
+
+            // Add todo to local storage
+            addTodoToLocalStorage('todosPage2', todos);
+
+            // Display the todo on the page
+            displayTodoOnPage(todos, todosContainer1);
+
+            // Clear the input field after adding a todo
+            page1input.value = '';
+        });
+
+        // Function to display a todo on the page
+        function displayTodoOnPage(todo, container) {
+            let todoElement = document.createElement('p');
+            todoElement.textContent = todo;
+            container.appendChild(todoElement);
+        }
+    </script>
+</body>
+
+</html>

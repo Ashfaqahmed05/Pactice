@@ -1,0 +1,71 @@
+<!-- page2.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #container {
+            margin-top: 100px;
+        }
+
+        input {
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            <h1>Page 2</h1>
+            <input id="page2input" type="text" placeholder="Add Todo for Page 1" required>
+            <button id="add-todo">Add Todo</button>
+            <div id="todoscontainer2"></div>
+            <a href="index.html">Go to Page 1</a>
+        </div>
+    </div>
+    <script src="index.js"></script>
+    <script>
+        let page2input = document.getElementById('page2input');
+        let btn = document.getElementById('add-todo');
+        let todosContainer2 = document.getElementById('todoscontainer2');
+
+        // Load existing todos from local storage
+        let existingTodos = getTodosFromLocalStorage('todosPage2');
+        existingTodos.forEach(todo => {
+            displayTodoOnPage(todo, todosContainer2);
+        });
+
+        btn.addEventListener('click', () => {
+            let todos = page2input.value;
+
+            // Add todo to local storage
+            addTodoToLocalStorage('todosPage1', todos);
+
+            // Display the todo on the page
+            displayTodoOnPage(todos, todosContainer2);
+
+            // Clear the input field after adding a todo
+            page2input.value = '';
+        });
+
+        // Function to display a todo on the page
+        function displayTodoOnPage(todo, container) {
+            let todoElement = document.createElement('p');
+            todoElement.textContent = todo;
+            container.appendChild(todoElement);
+        }
+    </script>
+</body>
+
+</html>
